@@ -45,7 +45,7 @@ function go_otp($con){
         $mail->Port       = 465;  
         $mail->SMTPSecure = "ssl";                   
         $mail->Username   = "heli@helihallproject.com.au";            // SMTP account username example
-        $mail->Password   = "6z!1579mA2&z3j";            // SMTP account password example
+        $mail->Password   = "";            // SMTP account password example
 
         $mail->setFrom('heli@helihallproject.com.au');   
         $mail->addAddress($to_email);
