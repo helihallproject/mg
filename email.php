@@ -5,47 +5,46 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-$to = 'yosiyod434@carpetra.com'; // note the comma
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
-// Subject
-$subject = 'Birthday Reminders for August';
 
-// Message
-$message = '
-<html>
-<head>
-  <title>Birthday Reminders for August</title>
-</head>
-<body>
-  <p style="color:blue;font-size:46px;">Here are the birthdays upcoming in August!</p>
-  <table>
-    <tr>
-      <th>Person</th><th>Day</th><th>Month</th><th>Year</th>
-    </tr>
-    <tr>
-      <td>Johny</td><td>10th</td><td>August</td><td>1970</td>
-    </tr>
-    <tr>
-      <td>Sally</td><td>17th</td><td>August</td><td>1973</td>
-    </tr>
-  </table>
-</body>
-</html>
-';
 
-// To send HTML mail, the Content-type header must be set
-$headers[] = 'MIME-Version: 1.0';
-$headers[] = 'Content-type: text/html; charset=iso-8859-1';
+echo "yo1<br>";
 
-// Additional headers
-$headers[] = 'To: Mary <yosiyod434@carpetra.com>';
-$headers[] = 'From: Birthday Reminder <birthday@example.com>';
-$headers[] = 'Cc: birthdayarchive@example.com';
-$headers[] = 'Bcc: birthdaycheck@example.com';
+$mail = new PHPMailer();
 
-// Mail it
-mail($to, $subject, $message, implode("\r\n", $headers));
+echo "yo1<br>";
+// Settings
+$mail->IsSMTP();
+$mail->CharSet = 'UTF-8';
 
+$mail->Host       = "ventraip.email";    // SMTP server example
+$mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
+$mail->SMTPAuth   = true;                  // enable SMTP authentication
+$mail->Port       = 465;  
+$mail->SMTPSecure = "ssl";                   
+$mail->Username   = "heli@helihallproject.com.au";            // SMTP account username example
+$mail->Password   = "";            // SMTP account password example
+
+echo "yo2<br>";
+// Content
+$mail->setFrom('heli@helihallproject.com.au');   
+$mail->addAddress('jamesnotinaus@gmail.com');
+
+$mail->isHTML(true);                       // Set email format to HTML
+$mail->Subject = 'Heli - OTP';
+$mail->Body    = 'Your OTP: <b>in bold!</b>';
+$mail->AltBody = 'Your OTP:';
+
+
+echo "yo3<br>";
+$mail->send();
+
+echo "yo4<br>";
 
 ?>

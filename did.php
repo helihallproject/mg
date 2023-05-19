@@ -25,7 +25,10 @@ foreach ($didlist as $did) {
 
     curl_setopt($ch, CURLOPT_URL, 'https://api.spacescan.io/did/nfts/' . $did['hdid'] . '?authkey=tkn1qqqksdnjyv3sf899jpwv5ujfz2ehpg9d0rtqvksksdnjyv3sgqqqj743lx&type=owned&version=0.1.0&network=mainnet&page=1');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 400);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+    curl_setopt($ch,CURLOPT_ENCODING,""); 
 
 
     $headers = array();
@@ -33,12 +36,23 @@ foreach ($didlist as $did) {
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     $result = curl_exec($ch);
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    echo $httpcode . "<br>";
+
+
+
     if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
     }
     curl_close($ch);
 
-    $resultDecoded = json_decode($result, true);
+    var_dump($result);
+
+    $resultDecoded = (array) json_decode($result,true);
+
+    echo "-->" . sizeof($resultDecoded) . "<--<br><br>";
+
+    //Need to work out WHY the error occurs sometimes..? Timing?
 
     $nftd = $resultDecoded['owned_nfts'];
 
@@ -66,6 +80,7 @@ foreach ($didlist as $did) {
 
         $nftd = $resultDecoded['data']['data_url'];
 
+        echo "<br>--<br>";
 
         foreach($nftd as $nft){
             echo $nft;

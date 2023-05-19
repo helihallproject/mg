@@ -1,10 +1,9 @@
 <?php
+session_start();
 
-$a = 0;
-
+echo $_SESSION['username'] . "<br>";
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>MG</title>
@@ -87,16 +86,29 @@ $a = 0;
 </head>
 <body>
 	<header>
-		<h1>Mojo Gallery</h1>
-		Register or Log In
-		<!--<form>
-			<input type="text" name="username" placeholder="Username">
-			<input type="password" name="password" placeholder="Password">
-			<input type="submit" value="Login">
-		</form>-->
+		<h1>MG</h1>
+
+		<?php 
+		//if (!empty($_SESSION['username']) && ($_SESSION['loggedin'] == 'YES')){
+		//	echo $_SESSION['username'] . "<br>";
+		//} else {
+		//echo "<a href='http://helihallproject.com.au/mg/register.php'>Register!</a> or <a href='http://helihallproject.com.au/mg/login.php'>Log In</a>";
+		//};
+		?>
+
+<a href='http://helihallproject.com.au/mg/login.php'>Log In</a>
+
 	</header>
 	<main>
-		<p>This is the main content of the webpage.</p>
+		<p>Hi.</p>
+		<?php 
+		echo "-" . $_SESSION['username'] . "<br>";
+		echo "-" . $_SESSION['email'] . "<br>";
+		echo "-" . $_SESSION['loggedin'] . "<br>";
+
+		?>
+
+
 	</main>
 	<footer>
 		<p>&copy; 2023 mojogallery</p>
